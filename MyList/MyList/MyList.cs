@@ -105,13 +105,11 @@ namespace MyListt
 
         public IEnumerator Enumerator()
         {
-            //var current = HeadNode;
-            //while (current != null)
-            //{
-            //    yield return current.Data;
-            //    current = current.Next;
-            //}
-            return null;
+            for(var i=0; i< Length;i++)
+            {
+                yield return MyArray[i];
+            }
+        //    return null;
         }
 
         public IEnumerator GetEnumerator()

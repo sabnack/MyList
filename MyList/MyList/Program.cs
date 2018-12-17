@@ -19,6 +19,10 @@ namespace MyListt
             myList.Insert(11,5);
             myList.DeleteAt(5);
             myList.Delete(5);
+            foreach (var item in myList)
+            {
+                Console.WriteLine( item);
+            }
             Console.WriteLine(myList.Length);
         }
     }
