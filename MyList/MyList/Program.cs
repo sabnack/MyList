@@ -10,20 +10,23 @@ namespace MyListt
     {
         static void Main(string[] args)
         {
-            var myList = new MyList<int>();
+            var myList = new MyList<int>(200);
 
             for (var i = 0; i < 10; i++)
             {
                 myList.Add(i);
             }
-            myList.Insert(11,5);
-            myList.DeleteAt(5);
-            myList.Delete(5);
+           
+            myList.DeleteAt(6);
             foreach (var item in myList)
             {
-                Console.WriteLine( item);
+                Console.WriteLine(item);
             }
+
+           
             Console.WriteLine(myList.Length);
+
+
         }
     }
 }

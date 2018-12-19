@@ -9,14 +9,13 @@ namespace MyListt
 {
     class MyList<T> : IEnumerable
     {
-        private T[] MyArray { get; set; }
+        private T[] _data { get; set; }
         public int Length { get; private set; }
-        private int Count { get; set; }
+        private const int _defaultSize = 100;
 
-        public MyList(int count = 10)
+        public MyList(int count = _defaultSize)
         {
-            MyArray = new T[count];
-            Count = count;
+            _data = new T[count];
         }
 
         public void Insert(T data, int index)
@@ -25,17 +24,17 @@ namespace MyListt
             {
                 throw new System.IndexOutOfRangeException();
             }
-            if (index == Length - 1 || Count == Length)
+            if (_data.Length == Length)
             {
                 IncreaseCapacity();
             }
 
             for (var i = Length; i > index; i--)
             {
-                MyArray[i] = MyArray[i - 1];
+                _data[i] = _data[i - 1];
             }
 
-            MyArray[index] = data;
+            _data[index] = data;
             Length++;
 
         }
@@ -48,16 +47,16 @@ namespace MyListt
             }
             if (index == Length - 1)
             {
-                MyArray[index] = default(T);
+                _data[index] = default(T);
                 Length--;
             }
             else
             {
                 for (var i = index; i < Length - 1; i++)
                 {
-                    MyArray[i] = MyArray[i + 1];
+                    _data[i] = _data[i + 1];
                 }
-                MyArray[Length - 1] = default(T);
+                _data[Length - 1] = default(T);
                 Length--;
             }
         }
@@ -66,50 +65,46 @@ namespace MyListt
         {
             for (var i = 0; i < Length; i++)
             {
-                if (MyArray[i].Equals(data))
+                if (_data[i].Equals(data))
                 {
                     DeleteAt(i);
-                    i--;
-                    //    break;
+                    break;
                 }
             }
         }
 
         public void Clear()
         {
-            MyArray = new T[100];
+            _data = new T[_defaultSize];
             Length = 0;
-            Count = 100;
         }
 
         public void Add(T data)
         {
-            if (Length == Count)
+            if (Length == _data.Length)
             {
                 IncreaseCapacity();
             }
-            MyArray[Length] = data;
+            _data[Length] = data;
             Length++;
         }
 
         private void IncreaseCapacity()
         {
-            T[] tmp = new T[Count * 2];
-            for (var i = 0; i < Count; i++)
+            T[] tmp = new T[_defaultSize * 2];
+            for (var i = 0; i < _defaultSize; i++)
             {
-                tmp[i] = MyArray[i];
+                tmp[i] = _data[i];
             }
-            MyArray = tmp;
-            Count *= 2;
+            _data = tmp;
         }
 
         public IEnumerator Enumerator()
         {
             for(var i=0; i< Length;i++)
             {
-                yield return MyArray[i];
+                yield return _data[i];
             }
-        //    return null;
         }
 
         public IEnumerator GetEnumerator()
